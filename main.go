@@ -9,9 +9,9 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/yosssi/goat/config"
-	"github.com/yosssi/goat/consts"
-	"github.com/yosssi/goat/context"
+	"github.com/maxid/goat/config"
+	"github.com/maxid/goat/consts"
+	"github.com/maxid/goat/context"
 )
 
 // main executes main processes.
