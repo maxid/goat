@@ -25,7 +25,7 @@ func (w *Watcher) Launch(ctx *Context, jobsC chan<- Job) {
 	w.Targets = make(map[string]map[string]os.FileInfo)
 	watchDir := ctx.Wd
 	if w.Directory != "" {
-		watchDir = watchDir+"/"+w.Directory
+		watchDir = watchDir + "/" + w.Directory
 	}
 	w.readDir(watchDir, true)
 	w.Printf("%s", "Watching...")
@@ -96,7 +96,7 @@ func (w *Watcher) readDir(dirname string, init bool) error {
 // sendJob sends a job to the channel.
 func (w *Watcher) sendJob(dirname, name, action string) {
 	message := fmt.Sprintf("%s was %s.", dirname+"/"+name, action)
-	w.JobsC <- Job{Watcher: w, Message: message}
+	w.JobsC <- Job{Watcher: w, Message: message, Path: dirname, Name: name}
 }
 
 // Printf calls log.Printf.
