@@ -43,7 +43,7 @@ func main() {
 
 	initTasks := ctx.Config.InitTasks
 	if initTasks != nil && len(initTasks) > 0 {
-		executeTasks(initTasks, nil)
+		executeTasks(initTasks, nil, "/nil", "nil")
 	}
 
 	jobsC := make(chan context.Job, consts.JobsChannelBuffer)
@@ -65,14 +65,16 @@ func handleJobs(jobsC <-chan context.Job) {
 	for job := range jobsC {
 		watcher := job.Watcher
 		watcher.Printf("%s", job.Message)
-		executeTasks(watcher.Tasks, watcher)
+		executeTasks(watcher.Tasks, watcher, job.Path, job.Name)
 	}
 }
 
 // executeTasks executes tasks.
-func executeTasks(tasks []*context.Task, watcher *context.Watcher) {
+func executeTasks(tasks []*context.Task, watcher *context.Watcher, filePath string, fileName string) {
 	for _, task := range tasks {
 		command := task.Command
+		command = strings.Replace(command, "{file}", fileName, -1)
+		command = strings.Replace(command, "{path}", filePath, -1)
 		tokens := strings.Split(command, " ")
 		name := tokens[0]
 		var cmdArg []string
