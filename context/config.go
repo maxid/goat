@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/yosssi/goat/config"
+	"github.com/maxid/goat/config"
 	"gopkg.in/yaml.v2"
 )
 
